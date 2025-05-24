@@ -1,24 +1,26 @@
-package com.delcons.features.customer.mapper;
+package com.delcons.features.employee.mapper;
 
 import com.delcons.features.customer.dto.CustomerCreateDTO;
 import com.delcons.features.customer.dto.CustomerResponseDTO;
 import com.delcons.features.customer.model.Customer;
+import com.delcons.features.employee.dto.EmployeeCreateDTO;
+import com.delcons.features.employee.dto.EmployeeResponseDTO;
+import com.delcons.features.employee.model.Employee;
 
-public class CustomerMapper {
-    public static Customer toEntity(CustomerCreateDTO dto) {
-        return new Customer(
+public class EmployeeMapper {
+    public static Employee toEntity(EmployeeCreateDTO dto) {
+        return new Employee(
                 dto.dni(),
                 dto.name(),
                 dto.lastname(),
                 dto.email(),
                 dto.phone(),
-                dto.address(),
-                "standard"
+                dto.address()
         );
     }
 
-    public static CustomerResponseDTO toResponseDTO(Customer entity) {
-        return new CustomerResponseDTO(
+    public static EmployeeResponseDTO toResponseDTO(Employee entity) {
+        return new EmployeeResponseDTO(
                 entity.getId(),
                 entity.getDni(),
                 entity.getName(),
@@ -26,7 +28,7 @@ public class CustomerMapper {
                 entity.getEmail(),
                 entity.getPhone(),
                 entity.getAddress(),
-                entity.getLevel()
+                entity.getActive()
         );
     }
 }

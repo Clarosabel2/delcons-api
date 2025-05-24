@@ -3,13 +3,16 @@ package com.delcons.features.employee.model;
 import com.delcons.common.models.Person;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "employee")
 public class Employee extends Person {
+    @Getter @Setter
     private Boolean active;
 
     public Employee(Long dni, String name, String lastname, String email, String phone, String address) {
