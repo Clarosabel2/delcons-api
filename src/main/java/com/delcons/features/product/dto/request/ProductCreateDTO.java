@@ -1,4 +1,4 @@
-package com.delcons.features.product.dto;
+package com.delcons.features.product.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

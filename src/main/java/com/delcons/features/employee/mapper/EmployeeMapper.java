@@ -1,8 +1,5 @@
 package com.delcons.features.employee.mapper;
 
-import com.delcons.features.customer.dto.CustomerCreateDTO;
-import com.delcons.features.customer.dto.CustomerResponseDTO;
-import com.delcons.features.customer.model.Customer;
 import com.delcons.features.employee.dto.EmployeeCreateDTO;
 import com.delcons.features.employee.dto.EmployeeResponseDTO;
 import com.delcons.features.employee.model.Employee;

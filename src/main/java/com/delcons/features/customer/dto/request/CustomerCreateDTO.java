@@ -1,4 +1,4 @@
-package com.delcons.features.customer.dto;
+package com.delcons.features.customer.dto.request;
 
 import jakarta.validation.constraints.*;
 

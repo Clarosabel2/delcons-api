@@ -1,14 +1,15 @@
 package com.delcons.features.product.controller;
 
-import com.delcons.features.product.dto.ProductCreateDTO;
-import com.delcons.features.product.dto.ProductResponseDTO;
-import com.delcons.features.product.mapper.IProductMapper;
-import com.delcons.features.product.model.Product;
+import com.delcons.features.product.dto.request.ProductCreateDTO;
+import com.delcons.features.product.dto.response.ProductResponseDTO;
 import com.delcons.features.product.service.ProductService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/products")
@@ -16,17 +17,25 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     private final ProductService s;
-    private final IProductMapper mapper;
-
-    public ProductController(ProductService s, IProductMapper mapper) {
+    public ProductController(ProductService s) {
         this.s = s;
-        this.mapper = mapper;
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ProductResponseDTO>> getAllProducts(Pageable pageable) {
+        Page<ProductResponseDTO> productsPage = s.getAllProducts(pageable);
+
+        if (productsPage.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 204 No Content si no hay productos
+        }
+        return ResponseEntity.ok(productsPage);
     }
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody @Valid ProductCreateDTO p) {
-        Product newProduct = mapper.toEntity(p);
-        return ResponseEntity.ok(mapper.toResponseDTO(s.addProduct(newProduct)));
+        ProductResponseDTO created = s.addProduct(p);
+        URI location = URI.create("/products/" + created.id());
+        return ResponseEntity.created(location).body(created);
     }
 
 }

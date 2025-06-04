@@ -1,10 +1,10 @@
 package com.delcons.features.brand.mapper;
 
-import com.delcons.features.brand.dto.BrandCreateDTO;
-import com.delcons.features.brand.dto.BrandResponseDTO;
-import com.delcons.features.brand.dto.BrandWithProductsDTO;
+import com.delcons.features.brand.dto.request.BrandCreateDTO;
+import com.delcons.features.brand.dto.response.BrandResponseDTO;
+import com.delcons.features.brand.dto.response.BrandWithProductsDTO;
 import com.delcons.features.brand.model.Brand;
-import com.delcons.features.product.dto.ProductResponseDTO;
+import com.delcons.features.product.dto.response.ProductSummaryResponseDTO;
 import com.delcons.features.product.model.Product;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-31T23:38:31-0300",
+    date = "2025-06-01T16:08:48-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 22.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -60,32 +60,18 @@ public class IBrandMapperImpl implements IBrandMapper {
 
         Long id = null;
         String name = null;
-        List<ProductResponseDTO> products = null;
+        List<ProductSummaryResponseDTO> products = null;
 
         id = brand.getId();
         name = brand.getName();
-        products = productListToProductResponseDTOList( brand.getProducts() );
+        products = productListToProductSummaryResponseDTOList( brand.getProducts() );
 
         BrandWithProductsDTO brandWithProductsDTO = new BrandWithProductsDTO( id, name, products );
 
         return brandWithProductsDTO;
     }
 
-    @Override
-    public List<BrandWithProductsDTO> toBrandWithProductsDTO(List<Brand> brands) {
-        if ( brands == null ) {
-            return null;
-        }
-
-        List<BrandWithProductsDTO> list = new ArrayList<BrandWithProductsDTO>( brands.size() );
-        for ( Brand brand : brands ) {
-            list.add( toBrandWithProductsDTO( brand ) );
-        }
-
-        return list;
-    }
-
-    protected ProductResponseDTO productToProductResponseDTO(Product product) {
+    protected ProductSummaryResponseDTO productToProductSummaryResponseDTO(Product product) {
         if ( product == null ) {
             return null;
         }
@@ -102,21 +88,19 @@ public class IBrandMapperImpl implements IBrandMapper {
         price = product.getPrice();
         stock = product.getStock();
 
-        String brandName = null;
+        ProductSummaryResponseDTO productSummaryResponseDTO = new ProductSummaryResponseDTO( id, name, description, price, stock );
 
-        ProductResponseDTO productResponseDTO = new ProductResponseDTO( id, name, description, price, stock, brandName );
-
-        return productResponseDTO;
+        return productSummaryResponseDTO;
     }
 
-    protected List<ProductResponseDTO> productListToProductResponseDTOList(List<Product> list) {
+    protected List<ProductSummaryResponseDTO> productListToProductSummaryResponseDTOList(List<Product> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<ProductResponseDTO> list1 = new ArrayList<ProductResponseDTO>( list.size() );
+        List<ProductSummaryResponseDTO> list1 = new ArrayList<ProductSummaryResponseDTO>( list.size() );
         for ( Product product : list ) {
-            list1.add( productToProductResponseDTO( product ) );
+            list1.add( productToProductSummaryResponseDTO( product ) );
         }
 
         return list1;

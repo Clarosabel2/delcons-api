@@ -1,4 +1,4 @@
-package com.delcons.features.product.dto;
+package com.delcons.features.product.dto.response;
 
 public record ProductResponseDTO(
         Long id,

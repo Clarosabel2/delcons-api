@@ -1,7 +1,7 @@
 package com.delcons.features.customer.mapper;
 
-import com.delcons.features.customer.dto.CustomerCreateDTO;
-import com.delcons.features.customer.dto.CustomerResponseDTO;
+import com.delcons.features.customer.dto.request.CustomerCreateDTO;
+import com.delcons.features.customer.dto.response.CustomerResponseDTO;
 import com.delcons.features.customer.model.Customer;
 
 public class CustomerMapper {
