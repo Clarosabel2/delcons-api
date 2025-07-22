@@ -1,7 +1,8 @@
 package com.delcons.features.customer.model;
 
-import com.delcons.common.models.Person;
-import com.delcons.features.sale.model.invoice.Invoice;
+import com.delcons.features.user.model.User;
+import com.delcons.shared.models.Person;
+import com.delcons.features.sale.invoice.model.Invoice;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,8 @@ import java.util.List;
 public class Customer extends Person {
     @Getter @Setter
     private String level;
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
 
     @OneToMany(mappedBy = "customer")
     private List<Invoice> invoices;

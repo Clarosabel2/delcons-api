@@ -3,6 +3,7 @@ package com.delcons.features.product.controller;
 import com.delcons.features.product.dto.request.ProductCreateDTO;
 import com.delcons.features.product.dto.response.ProductResponseDTO;
 import com.delcons.features.product.service.ProductService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,13 +13,19 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 @ResponseBody
+@SecurityRequirement(name = "bearer-key")
 public class ProductController {
 
     private final ProductService s;
     public ProductController(ProductService s) {
         this.s = s;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDTO> getProductById(@RequestParam long id) {
+        return s.getProductById(id);
     }
 
     @GetMapping

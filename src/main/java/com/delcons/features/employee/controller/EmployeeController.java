@@ -5,14 +5,16 @@ import com.delcons.features.employee.dto.EmployeeResponseDTO;
 import com.delcons.features.employee.mapper.EmployeeMapper;
 import com.delcons.features.employee.model.Employee;
 import com.delcons.features.employee.service.EmployeeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/employees")
 @ResponseBody
+@RequestMapping("/api/employees")
+@SecurityRequirement(name = "bearer-key")
 public class EmployeeController {
 
     @Autowired

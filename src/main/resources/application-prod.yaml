@@ -1,0 +1,18 @@
+server:
+  error:
+    include-stacktrace: never
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6479

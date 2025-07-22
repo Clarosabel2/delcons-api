@@ -2,10 +2,8 @@ package com.delcons.features.brand.controller;
 
 import com.delcons.features.brand.dto.request.BrandCreateDTO;
 import com.delcons.features.brand.dto.response.BrandResponseDTO;
-import com.delcons.features.brand.dto.response.BrandWithProductsDTO;
-import com.delcons.features.brand.mapper.IBrandMapper;
-import com.delcons.features.brand.model.Brand;
 import com.delcons.features.brand.service.BrandService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,8 +15,9 @@ import java.net.URI;
 
 
 @RestController
-@RequestMapping("/brands")
+@RequestMapping("/api/brands")
 @ResponseBody
+@SecurityRequirement(name = "bearer-key")
 public class BrandController {
 
     private final BrandService s;

@@ -1,18 +1,8 @@
-spring:
+server:
+  port: 8080
 
+spring:
   application:
     name: delcons
-
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:5432/borcla_db
-    username: root
-    password: 12345
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+  profiles:
+    active: "dev"

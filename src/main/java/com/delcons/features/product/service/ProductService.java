@@ -10,16 +10,20 @@ import com.delcons.features.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
-    @Autowired
-    private ProductRepository repo;
-    @Autowired
-    private IProductMapper mapper;
-    @Autowired
-    private BrandService brandService;
+    private final ProductRepository repo;
+    private final IProductMapper mapper;
+    private final BrandService brandService;
+
+    public ProductService(ProductRepository repo, IProductMapper mapper, BrandService brandService) {
+        this.repo = repo;
+        this.mapper = mapper;
+        this.brandService = brandService;
+    }
 
     public ProductResponseDTO addProduct(ProductCreateDTO p) {
         Product newProduct = mapper.toEntity(p);
@@ -31,5 +35,11 @@ public class ProductService {
 
     public Page<ProductResponseDTO> getAllProducts(Pageable pageable) {
         return repo.findAll(pageable).map(mapper::toResponseDTO);
+    }
+
+    public ResponseEntity<ProductResponseDTO> getProductById(long id) {
+        return repo.findById(id)
+                .map(product -> ResponseEntity.ok(mapper.toResponseDTO(product)))
+                .orElse(ResponseEntity.notFound().build());
     }
 }

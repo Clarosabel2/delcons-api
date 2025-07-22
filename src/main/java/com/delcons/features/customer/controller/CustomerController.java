@@ -3,6 +3,7 @@ package com.delcons.features.customer.controller;
 import com.delcons.features.customer.dto.request.CustomerCreateDTO;
 import com.delcons.features.customer.dto.response.CustomerResponseDTO;
 import com.delcons.features.customer.service.CustomerService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,8 @@ import java.net.URI;
 
 @RestController
 @ResponseBody
-@RequestMapping("/customers")
+@RequestMapping("/api/customers")
+@SecurityRequirement(name = "bearer-key")
 public class CustomerController {
 
     @Autowired
