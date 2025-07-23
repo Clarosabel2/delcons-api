@@ -1,14 +1,14 @@
 package com.delcons.features.auth.service;
 
-import com.delcons.features.auth.dto.LoginRequest;
-import com.delcons.features.auth.dto.RegisterRequest;
-import com.delcons.features.auth.dto.TokenDTO;
+import com.delcons.features.auth.dto.request.LoginRequest;
+import com.delcons.features.auth.dto.request.UserCreateDTO;
+import com.delcons.features.auth.dto.request.UserCreateWithRoleDTO;
+import com.delcons.features.auth.dto.response.TokenDTO;
+import com.delcons.features.auth.dto.response.UserResponseDTO;
 import com.delcons.features.user.model.User;
 import com.delcons.features.user.model.UserRole;
 import com.delcons.features.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,7 +41,7 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     public TokenDTO authenticationUser(LoginRequest loginRequest) {
@@ -51,23 +51,38 @@ public class AuthService implements UserDetailsService {
         return new TokenDTO(token);
     }
 
-    public TokenDTO register(RegisterRequest request) {
-        if(userRepository
-                .existsUserByUsernameOrEmail(
-                        request.email(),
-                        request.username())){
+    private void validateUserRegistration(UserCreateDTO request) {
+        if (userRepository.existsUserByUsernameOrEmail(request.email(), request.username())) {
             throw new UsernameNotFoundException("Username or Email already in use");
         }
-        if(!request.password().equals(request.password())){
+        if (!request.password().equals(request.password())) {
             throw new RuntimeException("Passwords don't match");
         }
+    }
 
+    public TokenDTO registerUser(UserCreateDTO request) {
+        validateUserRegistration(request);
+        User newUser = createUser(request, UserRole.USER);
+        return new TokenDTO(tokenService.generateToken(newUser));
+    }
+
+    public UserResponseDTO registerUserByAdmin(UserCreateWithRoleDTO request) {
+        validateUserRegistration(new UserCreateDTO(
+                request.username(),
+                request.email(),
+                request.password(),
+                request.confirmPassword()
+        ));
+        User newUser = createUser(request.toUserCreateDTO(), request.role());
+        return new UserResponseDTO(newUser.getEmail(), newUser.getUsername(), newUser.getRol().name());
+    }
+
+    private User createUser(UserCreateDTO request, UserRole role) {
         User newUser = new User();
         newUser.setUsername(request.username());
         newUser.setEmail(request.email());
         newUser.setPassword(passwordEncoder.encode(request.password()));
-        newUser.setRol(UserRole.USER);
-        userRepository.save(newUser);
-        return new TokenDTO(tokenService.generateToken(newUser));
+        newUser.setRol(role);
+        return userRepository.save(newUser);
     }
 }

@@ -1,11 +1,11 @@
-package com.delcons.features.auth.dto;
+package com.delcons.features.auth.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public record RegisterRequest(
+public record UserCreateDTO(
         @Email @NotBlank
         String email,
         @NotBlank
@@ -20,4 +20,6 @@ public record RegisterRequest(
         @NotBlank
         String confirmPassword
 ) {
+
+
 }

@@ -1,4 +1,4 @@
-package com.delcons.features.auth.dto;
+package com.delcons.features.auth.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

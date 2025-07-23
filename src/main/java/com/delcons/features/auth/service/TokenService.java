@@ -25,6 +25,7 @@ public class TokenService {
                     .withIssuer("delcons")
                     .withSubject(user.getUsername())
                     .withClaim("id",user.getId())
+                    .withClaim("role",user.getRol().name())
                     .withExpiresAt(generateDateExpiration())
                     .sign(algorithm);
         }

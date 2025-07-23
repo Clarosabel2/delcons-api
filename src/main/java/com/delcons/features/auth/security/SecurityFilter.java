@@ -26,7 +26,6 @@ public class SecurityFilter extends OncePerRequestFilter {
         this.userRepository = userRepository;
     }
 
-
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
