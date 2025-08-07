@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.delcons.features.auth.exception.TokenException;
 import com.delcons.features.user.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,12 +31,12 @@ public class TokenService {
                     .sign(algorithm);
         }
         catch (JWTCreationException e) {
-            throw new RuntimeException();
+            throw new TokenException();
         }
     }
 
     public String getSubject(String token) {
-        if(token == null) throw new RuntimeException("Token is null");
+        if(token == null) throw new TokenException("Token is null");
         DecodedJWT verifier = null;
         try {
             Algorithm algorithm = Algorithm.HMAC256(apiSecret); //validando la firma
@@ -49,7 +50,7 @@ public class TokenService {
             System.out.println(exception.getMessage());
         }
         if (verifier.getSubject() == null) {
-            throw new RuntimeException("Token not found");
+            throw new TokenException("Token not found");
         }
         return verifier.getSubject();
     }

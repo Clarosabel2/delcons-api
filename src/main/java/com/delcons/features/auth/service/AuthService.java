@@ -55,8 +55,8 @@ public class AuthService implements UserDetailsService {
         if (userRepository.existsUserByUsernameOrEmail(request.email(), request.username())) {
             throw new UsernameNotFoundException("Invalid credentials");
         }
-        if (!request.password().equals(request.password())) {
-            throw new RuntimeException("Passwords don't match");
+        if (!request.password().equals(request.confirmPassword())) {
+            throw new IllegalArgumentException("Passwords do not match");
         }
     }
 

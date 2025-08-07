@@ -22,8 +22,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Autowired
-    private SecurityFilter jwtSecurityFilter;
+    private final SecurityFilter jwtSecurityFilter;
+    public SecurityConfig (SecurityFilter jwtSecurityFilter) {
+        this.jwtSecurityFilter = jwtSecurityFilter;
+    }
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         // CSRF is disabled because this application uses stateless JWT authentication.
