@@ -7,6 +7,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.delcons.features.auth.exception.TokenException;
 import com.delcons.features.user.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import java.time.ZoneOffset;
 public class TokenService {
     @Value("${jwt.secret}")
     private String apiSecret;
+    private static final Logger logger = LoggerFactory.getLogger(TokenService.class);
 
     public String generateToken(User user) {
         try {
@@ -46,8 +49,7 @@ public class TokenService {
                     .verify(token);
             verifier.getSubject();
         } catch (JWTVerificationException exception) {
-
-            System.out.println(exception.getMessage());
+            logger.error("Exception message: {}", exception.getMessage());
         }
         if (verifier.getSubject() == null) {
             throw new TokenException("Token not found");
