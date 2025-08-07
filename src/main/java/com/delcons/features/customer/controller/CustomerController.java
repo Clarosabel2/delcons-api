@@ -35,7 +35,7 @@ public class CustomerController {
     public ResponseEntity<Page<CustomerResponseDTO>> getAllCustomers(Pageable pageable) {
         Page<CustomerResponseDTO> result = customerService.getAllCustomers(pageable);
         if (result == null) {
-            return ResponseEntity.noContent().build(); // 204 No Content
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(result);
     }

@@ -26,13 +26,9 @@ public class CustomerService {
     }
 
     public Page<CustomerResponseDTO> getAllCustomers(Pageable pageable) {
-//        Page<CustomerResponseDTO> customers = repository.findAll(pageable).map(mapper::toResponse);
-        return null;
+        return repository.findAll(pageable).map(mapper::toResponse);
     }
 
-    public List<Customer> getActivesCustomers() {
-        return null;
-    }
 
     public CustomerResponseDTO getCustomerByDni(long dni) {
         return mapper.toResponse(repository.findByPerson_Dni(dni).isPresent() ? repository.findByPerson_Dni(dni).get() : null);
