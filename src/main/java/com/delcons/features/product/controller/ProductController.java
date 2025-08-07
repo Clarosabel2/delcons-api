@@ -18,19 +18,19 @@ import java.net.URI;
 @SecurityRequirement(name = "bearer-key")
 public class ProductController {
 
-    private final ProductService s;
-    public ProductController(ProductService s) {
-        this.s = s;
+    private final ProductService service;
+    public ProductController(ProductService productService) {
+        this.service = productService;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> getProductById(@RequestParam long id) {
-        return s.getProductById(id);
+    public ResponseEntity<ProductResponseDTO> getResourceById(@PathVariable("id") long id) {
+        return service.getProductById(id);
     }
 
     @GetMapping
     public ResponseEntity<Page<ProductResponseDTO>> getAllProducts(Pageable pageable) {
-        Page<ProductResponseDTO> productsPage = s.getAllProducts(pageable);
+        Page<ProductResponseDTO> productsPage = service.getAllProducts(pageable);
 
         if (productsPage.isEmpty()) {
             return ResponseEntity.noContent().build(); // 204 No Content si no hay productos
@@ -40,7 +40,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody @Valid ProductCreateDTO p) {
-        ProductResponseDTO created = s.addProduct(p);
+        ProductResponseDTO created = service.addProduct(p);
         URI location = URI.create("/products/" + created.id());
         return ResponseEntity.created(location).body(created);
     }
