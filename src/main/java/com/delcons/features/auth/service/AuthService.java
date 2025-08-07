@@ -53,7 +53,7 @@ public class AuthService implements UserDetailsService {
 
     private void validateUserRegistration(UserCreateDTO request) {
         if (userRepository.existsUserByUsernameOrEmail(request.email(), request.username())) {
-            throw new UsernameNotFoundException("Username or Email already in use");
+            throw new UsernameNotFoundException("Invalid credentials");
         }
         if (!request.password().equals(request.password())) {
             throw new RuntimeException("Passwords don't match");

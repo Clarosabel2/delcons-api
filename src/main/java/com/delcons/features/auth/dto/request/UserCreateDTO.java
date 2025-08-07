@@ -13,7 +13,7 @@ public record UserCreateDTO(
         @NotBlank
         @Size(min = 8, message = "Password must be at least 8 characters long")
         @Pattern(
-                regexp = ".*[!@#$%^&*()_+\\-={}:;\"'<>,.?/\\\\|\\[\\]].*",
+                regexp = "^(?=.*[!@#$%^&*()_+\\-={}:;\"'<>,.?/\\\\|\\[\\]]).+$",
                 message = "Password must contain at least one symbol"
         )
         String password,
