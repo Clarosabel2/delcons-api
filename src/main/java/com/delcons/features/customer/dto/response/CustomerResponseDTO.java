@@ -1,5 +1,7 @@
 package com.delcons.features.customer.dto.response;
 
+import com.delcons.shared.dtos.AddressRequestDTO;
+
 public record CustomerResponseDTO(
         Long id,
         Long dni,
@@ -7,6 +9,6 @@ public record CustomerResponseDTO(
         String lastname,
         String email,
         String phone,
-        String address,
-        String level
+        String level,
+        AddressRequestDTO address
 ) {}

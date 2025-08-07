@@ -2,6 +2,7 @@ package com.delcons.features.user.model;
 
 import com.delcons.features.customer.model.Customer;
 import com.delcons.features.employee.model.Employee;
+import com.delcons.shared.models.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User implements UserDetails {
+public class User extends BaseEntity implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String username;

@@ -7,7 +7,6 @@ import com.delcons.features.product.dto.response.ProductResponseDTO;
 import com.delcons.features.product.mapper.IProductMapper;
 import com.delcons.features.product.model.Product;
 import com.delcons.features.product.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
 package com.delcons.features.product.controller;
 
+import com.delcons.features.product.service.ProductService;
 import com.delcons.features.product.dto.request.ProductCreateDTO;
 import com.delcons.features.product.dto.response.ProductResponseDTO;
-import com.delcons.features.product.service.ProductService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1/products")
 @ResponseBody
 @SecurityRequirement(name = "bearer-key")
 public class ProductController {

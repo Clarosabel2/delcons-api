@@ -1,5 +1,7 @@
 package com.delcons.features.employee.dto;
 
+import com.delcons.shared.dtos.AddressRequestDTO;
+
 public record EmployeeResponseDTO(
         Long id,
         Long dni,
@@ -7,7 +9,7 @@ public record EmployeeResponseDTO(
         String lastname,
         String email,
         String phone,
-        String address,
-        boolean active
+        boolean active,
+        AddressRequestDTO address
 ) {
 }

@@ -21,6 +21,7 @@ public class Cart {
     private int id;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)

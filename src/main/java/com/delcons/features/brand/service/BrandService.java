@@ -2,6 +2,7 @@ package com.delcons.features.brand.service;
 
 import com.delcons.features.brand.dto.request.BrandCreateDTO;
 import com.delcons.features.brand.dto.response.BrandResponseDTO;
+import com.delcons.features.brand.dto.response.BrandWithProductsDTO;
 import com.delcons.features.brand.mapper.IBrandMapper;
 import com.delcons.features.brand.model.Brand;
 import com.delcons.features.brand.repository.BrandRepository;
@@ -14,23 +15,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrandService {
 
-    @Autowired
-    private BrandRepository repo;
-    @Autowired
-    private IBrandMapper mapper;
+    private final BrandRepository repo;
+    private final IBrandMapper mapper;
 
-    public Page<?> getAllBrands(Pageable pageable, boolean withProducts) {
+    public BrandService(BrandRepository repo, IBrandMapper mapper) {
+        this.repo = repo;
+        this.mapper = mapper;
+    }
+
+    public Page<BrandResponseDTO> getAllBrands(Pageable pageable) {
         Page<Brand> brands = repo.findAll(pageable);
-
         if (brands.isEmpty()) {
             return Page.empty();
         }
-
-        if (withProducts) {
-            return brands.map(mapper::toBrandWithProductsDTO);
-        } else {
-            return brands.map(mapper::toResponseDTO);
+        return brands.map(mapper::toResponseDTO);
+    }
+    public Page<BrandWithProductsDTO>  getAllBrandsWithProducts(Pageable pageable) {
+        Page<Brand>brands = repo.findAll(pageable);
+        if (brands.isEmpty()) {
+            return Page.empty();
         }
+        return brands.map(mapper::toBrandWithProductsDTO);
     }
 
     public BrandResponseDTO addBrand(BrandCreateDTO b) {

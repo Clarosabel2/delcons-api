@@ -14,14 +14,20 @@ import java.util.List;
 
 @Service
 public class CustomerService {
-    @Autowired
-    private CustomerRepository repository;
-    @Autowired
-    private ICustomerMapper mapper;
+
+    private final CustomerRepository repository;
+    private final ICustomerMapper mapper;
+
+    public CustomerService(
+            CustomerRepository repository,
+            ICustomerMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     public Page<CustomerResponseDTO> getAllCustomers(Pageable pageable) {
-        Page<CustomerResponseDTO> customers = repository.findAll(pageable).map(mapper::toResponse);
-        return customers;
+//        Page<CustomerResponseDTO> customers = repository.findAll(pageable).map(mapper::toResponse);
+        return null;
     }
 
     public List<Customer> getActivesCustomers() {
@@ -29,7 +35,7 @@ public class CustomerService {
     }
 
     public CustomerResponseDTO getCustomerByDni(long dni) {
-        return mapper.toResponse(repository.findByDni(dni));
+        return mapper.toResponse(repository.findByPerson_Dni(dni).isPresent() ? repository.findByPerson_Dni(dni).get() : null);
     }
 
     public CustomerResponseDTO saveCustomer(CustomerCreateDTO dto) {
@@ -39,7 +45,6 @@ public class CustomerService {
     }
 
     public CustomerResponseDTO updateCustomer(Customer cus) {
-
         return null;
     }
 
@@ -47,8 +52,7 @@ public class CustomerService {
         if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }

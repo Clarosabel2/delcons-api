@@ -1,11 +1,9 @@
 package com.delcons.features.brand.model;
 
 import com.delcons.features.product.model.Product;
+import com.delcons.shared.models.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name = "brands")
-public class Brand {
+@EqualsAndHashCode(callSuper = false)
+public class Brand extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;

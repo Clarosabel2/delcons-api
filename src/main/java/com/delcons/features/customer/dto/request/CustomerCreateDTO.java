@@ -1,5 +1,6 @@
 package com.delcons.features.customer.dto.request;
 
+import com.delcons.shared.dtos.AddressRequestDTO;
 import jakarta.validation.constraints.*;
 
 public record CustomerCreateDTO(
@@ -18,7 +19,6 @@ public record CustomerCreateDTO(
         @NotBlank
         @Pattern(regexp = "\\d{10}", message = "El teléfono debe tener 10 dígitos")
         String phone,
-        @NotBlank @Size(max = 100)
-        String address
+        AddressRequestDTO address
 ) {
 }

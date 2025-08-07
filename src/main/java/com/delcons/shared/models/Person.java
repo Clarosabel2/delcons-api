@@ -1,42 +1,36 @@
 package com.delcons.shared.models;
 
+import com.delcons.features.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
-@MappedSuperclass
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Data
-public abstract class Person {
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "persons")
+public class Person extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false, unique = true)
     protected Long dni;
     protected String name;
     protected String lastname;
     protected String email;
-    protected String phone;
-    protected String address;
+    protected List<String> phone;
+    protected Boolean active = true;
 
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+    @ManyToOne
+    protected Address address;
 
-    private String createdBy;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public Person(Long dni, String name, String lastname, String email, String phone, String address) {
-        this.dni = dni;
-        this.name = name;
-        this.lastname = lastname;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-    }
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    protected User user;
 }
