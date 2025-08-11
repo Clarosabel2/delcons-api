@@ -1,0 +1,17 @@
+# Ignorar carpeta target donde Maven pone los .class y .jar generados
+/target/
+
+# Ignorar archivos jar generados
+*.jar
+
+# Ignorar logs
+*.log
+
+# Ignorar archivos temporales de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de IntelliJ IDEA
+.idea/
+*.iml
+out/
