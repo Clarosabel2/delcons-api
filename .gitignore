@@ -1,5 +1,6 @@
 # Ignorar carpeta target donde Maven pone los .class y .jar generados
 /target/
+target/
 
 # Ignorar archivos jar generados
 *.jar
@@ -11,7 +12,31 @@
 .DS_Store
 Thumbs.db
 
-# Ignorar archivos de IntelliJ IDEA
-.idea/
+HELP.md
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
-out/
+*.ipr
+
+### NetBeans
+/nbproject/pmvate/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+#VS Code
+.vscode/
