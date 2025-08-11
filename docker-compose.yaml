@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  delcons-api:
+    build: .
+    container_name: delcons_api_service
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://delcons_db:3306/database_delcons
+      DB_USER_NAME: delcons_user_admin
+      DB_PASSWORD: 12345
+      CACHE_REDIS_HOST: redis-cache
+      CACHE_REDIS_PORT: 6379
+    restart: always
+    depends_on:
+      - delcons_db
+      - redis-cache
+
+
+
+  delcons_db:
+    image: mysql:latest
+    container_name: delcons_db_service
+    environment:
+      MYSQL_DATABASE: database_delcons
+      MYSQL_USER: delcons_user_admin
+      MYSQL_PASSWORD: 12345
+      MYSQL_ROOT_PASSWORD: 12345
+    ports:
+      - "3306:3306"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin","ping","localhost"]
+      timeout: 10s
+      retries: 10
+
+  redis-cache:
+    image: redis
+    container_name: delcons_cache_service
+    ports:
+      - "6379:6379"
+    restart: always

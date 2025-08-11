@@ -57,6 +57,8 @@ public class CustomerController {
         return ResponseEntity.created(location).body(customerResponseDTO);
     }
 
+
+
     @DeleteMapping("/{dni}")
     @Operation(summary = "Eliminar un cliente",
             description = "Elimina un cliente identificado por su DNI.")

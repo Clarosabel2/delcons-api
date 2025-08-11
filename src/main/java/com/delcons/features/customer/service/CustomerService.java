@@ -5,12 +5,14 @@ import com.delcons.features.customer.dto.response.CustomerResponseDTO;
 import com.delcons.features.customer.mapper.ICustomerMapper;
 import com.delcons.features.customer.model.Customer;
 import com.delcons.features.customer.repository.CustomerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -40,8 +42,14 @@ public class CustomerService {
         return mapper.toResponse(saved);
     }
 
-    public CustomerResponseDTO updateCustomer(Customer cus) {
-        return null;
+    public CustomerResponseDTO updateCustomer(Long id, CustomerResponseDTO customer) {
+        Customer entity = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer with id " + id + " not found"));
+
+
+
+        Customer updated = repository.save(entity);
+        return mapper.toResponse(updated);
     }
 
     public Boolean deleteCustomer(long id) {

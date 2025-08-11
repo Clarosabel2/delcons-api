@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.delcons</groupId>
-	<artifactId>delcons</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Delcons</name>
-	<description>Delcons</description>
+	<artifactId>delcons-api</artifactId>
+	<version>0.0.1</version>
+	<name>delcons-api</name>
+	<description>Delcons API: Ecommerce</description>
 	<url/>
 	<licenses>
 		<license/>

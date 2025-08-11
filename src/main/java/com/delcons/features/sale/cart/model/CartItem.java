@@ -17,13 +17,20 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private double price;
+
+    @ManyToOne(optional = false)
+    private Product product;
     private int quantity;
 
     @ManyToOne(optional = false)
     private Cart cart;
 
-    @ManyToOne(optional = false)
-    private Product product;
+    private Double subtotal = 0.0;
+
+    public CartItem(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+        this.subtotal = product.getPrice() * quantity;
+    }
 
 }

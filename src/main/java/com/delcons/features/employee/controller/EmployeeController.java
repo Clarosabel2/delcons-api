@@ -17,12 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-    @RestController
-    @RequestMapping("/api/v1/employees")
-    @SecurityRequirement(name = "bearer-key")
-    @PreAuthorize("hasRole('ADMIN')")
-    @Tag(name = "Employees", description = "CRUD de empleados, acceso restringido a ADMIN")
-    public class EmployeeController {
+@RestController
+@RequestMapping("/api/v1/employees")
+@SecurityRequirement(name = "bearer-key")
+@PreAuthorize("hasRole('ADMIN')")
+@Tag(name = "Employees", description = "CRUD de empleados, acceso restringido a ADMIN")
+public class EmployeeController {
 
     private final EmployeeService service;
 
@@ -68,7 +68,7 @@ import org.springframework.web.bind.annotation.*;
             description = "Devuelve una lista paginada de empleados que están marcados como activos."
     )
     public ResponseEntity<Page<EmployeeResponseDTO>> getActivesEmployees(Pageable pageable) {
-        return ResponseEntity.ok(service.getEmployeesByActive(pageable,true));
+        return ResponseEntity.ok(service.getEmployeesByActive(pageable, true));
     }
 
     @GetMapping("/inactive")
@@ -77,7 +77,7 @@ import org.springframework.web.bind.annotation.*;
             description = "Devuelve una lista paginada de empleados que están marcados como inactivos."
     )
     public ResponseEntity<Page<EmployeeResponseDTO>> getInactiveEmployees(Pageable pageable) {
-        return ResponseEntity.ok(service.getEmployeesByActive(pageable,false));
+        return ResponseEntity.ok(service.getEmployeesByActive(pageable, false));
     }
 
     @PostMapping
@@ -85,7 +85,7 @@ import org.springframework.web.bind.annotation.*;
             summary = "Crear un nuevo empleado",
             description = "Recibe un objeto con los datos del empleado y lo guarda en la base de datos."
     )
-    public ResponseEntity<EmployeeResponseDTO>  addEmployee(@RequestBody @Valid EmployeeCreateDTO emp) {
+    public ResponseEntity<EmployeeResponseDTO> addEmployee(@RequestBody @Valid EmployeeCreateDTO emp) {
         return ResponseEntity.ok((service.saveEmployee(emp)));
     }
 
