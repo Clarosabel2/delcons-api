@@ -1,6 +1,6 @@
 # Ignorar carpeta target donde Maven pone los .class y .jar generados
-/target/
-target/
+#/target/
+#target/
 
 # Ignorar archivos jar generados
 *.jar
