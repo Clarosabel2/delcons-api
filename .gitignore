@@ -4,7 +4,6 @@
 
 # Ignorar archivos jar generados
 #*.jar
-
 # Ignorar logs
 *.log
 

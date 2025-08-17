@@ -16,7 +16,6 @@ services:
     depends_on:
       - delcons_db
       - redis-cache
-
   delcons_db:
     image: mysql:latest
     container_name: delcons_db_service
